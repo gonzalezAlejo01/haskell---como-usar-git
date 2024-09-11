@@ -1,4 +1,5 @@
-import GHC.ResponseFile (escapeArgs)
+import GHC.Builtin.Names (raiseDivZeroIdKey)
+--ESPECIFICAR LOS QUE PIDA--
 --guia 4
 fibonacci:: Int -> Int
 fibonacci x
@@ -41,11 +42,44 @@ cantDigitos x
     | x>=10 = 1+cantDigitos (div x 10)
     | otherwise = 1
 
---restarle digitoMasGrande*10^cantPosiciones, dps hacer div 10--
-test x = (mod x 10^((cantDigitos x)-1))
-
 esCapicua:: Integer -> Bool
 esCapicua x 
     | x < 10 = True
     | x < 100 = div x 10 == mod x 10
-    | otherwise = iesimoDigito x 1 == mod x 10 && esCapicua (div (x-mod x 10^(cantDigitos x-1)) 10) --probar en test--
+    | otherwise = iesimoDigito x 1 == mod x 10 && esCapicua (div ultDig 10)
+    where ultDig = mod x (10^(cantDigitos x-1))
+
+todosDigitosIguales:: Integer -> Bool
+todosDigitosIguales x 
+    | x<10 = True
+    | mod x 10 == mod (div x 10) 10 = todosDigitosIguales(div x 10)
+    | otherwise = False
+
+sumaDigitos:: Integer -> Integer
+sumaDigitos x 
+    | x<10 = mod x 10
+    | otherwise = mod x 10 + sumaDigitos (div x 10)
+
+--ejs 10, 11--
+
+raizD2Aprox:: Integer -> Float
+raizD2Aprox x 
+    | x==1 = 1
+    | otherwise = 2+(1/raizD2Aprox(x-1)) --terminar, falta hacer -1--
+
+--el 13 se hace igual, ver como iterar mejor que con funcion auxiliar: ah no, era con func auxiliar parece
+--el 15 tambien
+sumaPotencias:: Integer -> Integer -> Integer -> Integer --especificar
+sumaPotencias 1 y z = 1
+sumaPotencias x 1 1 = x^2
+sumaPotencias x 1 z = aux x 1 z
+sumaPotencias x y z = aux x y z+sumaPotencias x (y-1) z
+
+aux:: Integer-> Integer-> Integer-> Integer
+aux x 1 z = x^(z+1)
+aux x y 1 = x^(y+1)
+aux x y z = x^(y+z) + aux x y (z-1)
+
+menorDivisor:: Integer-> Integer
+menorDivisor x = x --no se puede sin funcion auxiliar?
+
