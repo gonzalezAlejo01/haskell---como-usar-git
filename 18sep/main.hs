@@ -55,4 +55,4 @@ maximo (x:xs)
 ordenar:: [Integer] -> [Integer]
 ordenar (x:xs)
     |null xs = [x]
-    |otherwise = ordenar(quitar (maximo (x:xs)) (x:xs)) ++ [maximo (x:xs)]
+    |otherwise = ordenar(quitar (maximo (x:xs)) (x:xs)) ++ [maximo (x:xs)] -- : (maximo (x:xs))
