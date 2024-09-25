@@ -1,4 +1,4 @@
-relacionesValidas:: [(String, String)] -> Bool
+relacionesValidas :: [(String, String)] -> Bool
 relacionesValidas [] = True
 relacionesValidas (r:rs)
     |fst r /= snd r && not (seRepite r rs) && not (seRepite (snd r, fst r) rs) = relacionesValidas rs
@@ -10,7 +10,7 @@ seRepite rel (r:rs)
     |fst rel == fst r && snd rel == snd r = True
     |otherwise = seRepite rel rs
 
-personas:: [(String, String)] -> [String]
+personas :: [(String, String)] -> [String]
 personas [] = []
 personas (p:ps)
     |fst p == snd p && fst p == "" = personas ps
